@@ -8,8 +8,10 @@ fun main() {
 //    val myResult = add(num1, num2)
 //    println("The sum is $myResult")
     val myResultDivision = divide(num1, num2)
-    println("The sum is $myResultDivision")
+    println("The division result is $myResultDivision")
 
+    val coffeeDetails = CoffeDetails(0, "Shashwat", 3, 2)
+    makeCoffee((coffeeDetails))
 }
 
 fun divide(num1: Int, num2: Int): Double {
@@ -27,19 +29,21 @@ fun askCustomerDetails() {
     val userName = readln()
     println("How many sugar cube will they want to enjoy")
     val sugarCount = readln().toInt()
-    makeCoffee(sugarCount, userName)
+//    makeCoffee(sugarCount, userName)
 //    makeCoffee(2, "Alex")
 //    makeCoffee(10, "Alex")
 //    makeCoffee(1, "Alex")
 }
 
-fun makeCoffee(sugarCount: Int, name: String) {
-    print("Coffee with ${if(sugarCount == 0 ) "no" else sugarCount} spoon")
-    when(sugarCount) {
+data class CoffeDetails(val sugarCount: Int, val name: String, val size: Int, val creamAmount: Int)
+
+fun makeCoffee(coffeDetails: CoffeDetails) {
+    print("Coffee with ${if(coffeDetails.sugarCount == 0 ) "no" else coffeDetails.sugarCount} spoon")
+    when(coffeDetails.sugarCount) {
         1 -> print("")
         else -> print("s")
     }
 
-    print(" of sugar for $name")
+    print(" of sugar for ${coffeDetails.name} and cream: ${coffeDetails.creamAmount}")
     println()
 }
