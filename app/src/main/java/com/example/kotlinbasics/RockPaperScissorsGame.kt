@@ -13,7 +13,7 @@ fun main() {
     var userChoice: String = ""
     var count = 0
 
-    // Commenting to test
+    // Commenting to test - 1
     while (count<3) {
         println("Rock -> 1, paper -> 2, scissors -> 3? Enter your choice!")
         userChoice = readln()
