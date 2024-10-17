@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,32 +36,37 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun UnitConverter(name: String, modifier: Modifier = Modifier) {
     Column {
-        Greeting(
-            name = name,
-            modifier = modifier
-        )
-        Greeting(
-            name = "Android",
-            modifier = modifier
-        )
+        // Stacking UI elements
+        Text(text = "unit converter")
+        OutlinedTextField(value = "", onValueChange = {
+            // here goes what happens when the value is changed in this outlined text field
+        })
         Row {
 
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+//@Composable
+//fun Greeting(name: String, modifier: Modifier = Modifier) {
+//    Text(
+//        text = "Hello $name!",
+//        modifier = modifier
+//    )
+//}
+
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    UnitConverterTheme {
+//        Greeting("Android")
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun UnitConverterPreview() {
     UnitConverterTheme {
-        Greeting("Android")
+        UnitConverter(name = "Something")
     }
 }
