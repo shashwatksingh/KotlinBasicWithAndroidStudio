@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
             UnitConverterTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     UnitConverter(
-                        name = "Android", modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -57,39 +57,48 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun UnitConverter(name: String, modifier: Modifier = Modifier) {
+fun UnitConverter(modifier: Modifier = Modifier) {
+    // state variable to store the numeric input value
     var inputValue by remember {
         mutableStateOf("")
     }
 
+    // state variable to store the numeric output value
     var outputValue by remember {
         mutableStateOf("")
     }
 
+    // state variable to store the input unit string
     var inputUnit by remember {
         mutableStateOf("Centimeters")
     }
 
-    var outputUnit by remember {
+    // state variable to store the output unit string
+    val outputUnit by remember {
         mutableStateOf("Meters")
     }
 
+    // state variable to store whether the input button is expanded or not
     var iExpanded by remember {
         mutableStateOf(false)
     }
 
+    // state variable to store whether the output button is expanded or not
     var oExpanded by remember {
         mutableStateOf(false)
     }
 
-    var conversionFactor = remember {
+    // state variable to store the input conversion factor
+    val conversionFactor = remember {
         mutableStateOf(1.0)
     }
 
-    var oconversionFactor = remember {
+    // state variable to store the output conversion factor
+    val oconversionFactor = remember {
         mutableStateOf(1.0)
     }
 
+    /* Custom styling function*/
     val customTextStyle = TextStyle(
         fontFamily = FontFamily.Default, // Replace with your desired font family
         fontSize = 16.sp, // Replace with your desired font size
@@ -97,6 +106,7 @@ fun UnitConverter(name: String, modifier: Modifier = Modifier) {
     )
 
 
+    /* Utility converter function */
     fun convertUnits() {
         val inputValueDouble = inputValue.toDoubleOrNull() ?: 0.0
         val result =
@@ -104,6 +114,7 @@ fun UnitConverter(name: String, modifier: Modifier = Modifier) {
         outputValue = result.toString()
     }
 
+    /* UI elements of the composable*/
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -197,22 +208,6 @@ fun UnitConverter(name: String, modifier: Modifier = Modifier) {
 
     }
 }
-
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    UnitConverterTheme {
-//        Greeting("Android")
-//    }
-//}
 
 @Preview(showBackground = true)
 @Composable
