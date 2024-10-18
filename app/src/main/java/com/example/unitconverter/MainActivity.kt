@@ -74,7 +74,7 @@ fun UnitConverter(modifier: Modifier = Modifier) {
     }
 
     // state variable to store the output unit string
-    val outputUnit by remember {
+    var outputUnit by remember {
         mutableStateOf("Meters")
     }
 
@@ -90,7 +90,7 @@ fun UnitConverter(modifier: Modifier = Modifier) {
 
     // state variable to store the input conversion factor
     val conversionFactor = remember {
-        mutableStateOf(1.0)
+        mutableStateOf(0.01)
     }
 
     // state variable to store the output conversion factor
@@ -174,26 +174,26 @@ fun UnitConverter(modifier: Modifier = Modifier) {
                 DropdownMenu(expanded = oExpanded, onDismissRequest = { oExpanded = false }) {
                     DropdownMenuItem(text = { Text(text = "Centimeters") }, onClick = {
                         oExpanded = false
-                        inputUnit = "Centimeters"
+                        outputUnit = "Centimeters"
                         oconversionFactor.value = 0.01
                         convertUnits()
                     })
 
                     DropdownMenuItem(text = { Text(text = "Meters") }, onClick = {
                         oExpanded = false
-                        inputUnit = "Meters"
+                        outputUnit = "Meters"
                         oconversionFactor.value = 1.00
                         convertUnits()
                     })
                     DropdownMenuItem(text = { Text(text = "Feet") }, onClick = {
                         oExpanded = false
-                        inputUnit = "Feet"
+                        outputUnit = "Feet"
                         oconversionFactor.value = 0.3048
                         convertUnits()
                     })
                     DropdownMenuItem(text = { Text(text = "Millimeters") }, onClick = {
                         oExpanded = false
-                        inputUnit = "Millimeters"
+                        outputUnit = "Millimeters"
                         oconversionFactor.value = 0.001
                         convertUnits()
                     })
@@ -213,6 +213,6 @@ fun UnitConverter(modifier: Modifier = Modifier) {
 @Composable
 fun UnitConverterPreview() {
     UnitConverterTheme {
-        UnitConverter(name = "Something")
+        UnitConverter()
     }
 }
