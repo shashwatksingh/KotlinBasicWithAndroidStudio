@@ -68,8 +68,25 @@ fun ShoppingListApp(innerPadding: PaddingValues) {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            items(sItems) {
-                ShoppingListItem(item = it, onEditClick = {}, onDeleteClick = {})
+            items(sItems) { item ->
+                if (item.isEditing) {
+                    ShoppingItemEditor(
+                        item = item,
+                        onEditComplete = { editedName, editedQuantity ->
+                            sItems = sItems.map {
+                                it.copy(isEditing = false)
+                            }
+                            val editedItem = sItems.find { it.id == item.id }
+                            editedItem?.let {
+                                it.name = editedName
+                                it.quantity = editedQuantity
+                            }
+                        })
+                }
+                ShoppingListItem(
+                    item = item,
+                    onEditClick = { sItems = sItems.map { it.copy(isEditing = it.id == item.id) } },
+                    onDeleteClick = { sItems = sItems - item })
             }
         }
     }
@@ -129,7 +146,7 @@ data class ShoppingItem(
 )
 
 @Composable
-fun shoppingItemEditor(item: ShoppingItem, onEditComplete: (String, Int) -> Unit) {
+fun ShoppingItemEditor(item: ShoppingItem, onEditComplete: (String, Int) -> Unit) {
     var editedName by remember { mutableStateOf(item.name) }
     var editedQuantity by remember { mutableStateOf(item.quantity.toString()) }
     var isEditing by remember { mutableStateOf(item.isEditing) }
@@ -171,7 +188,8 @@ fun ShoppingListItem(item: ShoppingItem, onEditClick: () -> Unit, onDeleteClick:
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .border(border = BorderStroke(2.dp, Color(0XFF018786)), shape = RoundedCornerShape(20))
+            .border(border = BorderStroke(2.dp, Color(0XFF018786)), shape = RoundedCornerShape(20)),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = item.name, modifier = Modifier.padding(8.dp))
         Text(text = "Qty: ${item.quantity}", modifier = Modifier.padding(8.dp))
@@ -180,7 +198,7 @@ fun ShoppingListItem(item: ShoppingItem, onEditClick: () -> Unit, onDeleteClick:
                 Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit an item")
             }
 
-            IconButton(onClick = onEditClick) {
+            IconButton(onClick = onDeleteClick) {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = "Edit an item")
             }
         }
